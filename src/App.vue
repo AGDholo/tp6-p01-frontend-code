@@ -1,15 +1,13 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <v-btn to="/">
-        tp6-p01 主页
-      </v-btn>
+      <v-btn to="/">tp6-p01 主页</v-btn>
 
       <v-spacer></v-spacer>
 
-      <v-btn to="/login">
-        登录
-      </v-btn>
+      <v-btn v-for="(item, i) in appbarItems" :key="i" :to="item.to">{{
+        item.text
+      }}</v-btn>
     </v-app-bar>
 
     <v-main>
@@ -22,12 +20,17 @@
 
 <script>
 export default {
-  name: "App",
-
-  components: {},
-
   data: () => ({
-    //
+    appbarItems: [
+      {
+        text: "注册",
+        to: "/sign"
+      },
+      {
+        text: "登录",
+        to: "/login"
+      }
+    ]
   })
 };
 </script>
