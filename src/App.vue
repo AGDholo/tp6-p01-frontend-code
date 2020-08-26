@@ -13,7 +13,7 @@
 
             <v-divider></v-divider>
 
-            <v-list dense rounded>
+            <v-list dense rounded nav>
               <v-list-item
                 v-for="item in navItems"
                 :key="item.title"
@@ -50,8 +50,7 @@ export default {
       { title: "主页", icon: "mdi-home", to: "/" },
       { title: "注册", icon: "mdi-account-plus", to: "/sign" },
       { title: "登录", icon: "mdi-login", to: "/login" }
-    ],
-    right: null
+    ]
   })
 };
 </script>
