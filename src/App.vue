@@ -1,36 +1,57 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-btn to="/">tp6-p01 主页</v-btn>
+    <v-container>
+      <v-row>
+        <v-col cols="auto">
+          <v-navigation-drawer permanent>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title class="title">TP6-P01</v-list-item-title>
+                <v-list-item-subtitle>Primer</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
 
-      <v-spacer></v-spacer>
+            <v-divider></v-divider>
 
-      <v-btn v-for="(item, i) in appbarItems" :key="i" :to="item.to">{{
-        item.text
-      }}</v-btn>
-    </v-app-bar>
+            <v-list dense rounded>
+              <v-list-item
+                v-for="item in navItems"
+                :key="item.title"
+                link
+                :to="item.to"
+                color="primary"
+              >
+                <v-list-item-icon>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-icon>
 
-    <v-main>
-      <v-container>
-        <router-view></router-view>
-      </v-container>
-    </v-main>
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-navigation-drawer>
+        </v-col>
+
+        <v-col>
+          <v-main>
+            <router-view></router-view>
+          </v-main>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-app>
 </template>
 
 <script>
 export default {
   data: () => ({
-    appbarItems: [
-      {
-        text: "注册",
-        to: "/sign"
-      },
-      {
-        text: "登录",
-        to: "/login"
-      }
-    ]
+    navItems: [
+      { title: "主页", icon: "mdi-home", to: "/" },
+      { title: "注册", icon: "mdi-account-plus", to: "/sign" },
+      { title: "登录", icon: "mdi-login", to: "/login" }
+    ],
+    right: null
   })
 };
 </script>
