@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-col cols="auto">
+        <v-col cols="2">
           <v-navigation-drawer permanent>
             <v-list-item>
               <v-list-item-content>
@@ -33,7 +33,7 @@
           </v-navigation-drawer>
         </v-col>
 
-        <v-col>
+        <v-col cols="8">
           <v-main>
             <router-view></router-view>
           </v-main>

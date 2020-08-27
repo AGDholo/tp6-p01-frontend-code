@@ -14,8 +14,6 @@
           <br />
         </span>
       </div>
-
-      <div v-if="success">注册成功，欢迎你： {{ success.email }}</div>
     </v-alert>
 
     <v-text-field label="邮件地址" type="email" v-model="email"></v-text-field>
@@ -33,21 +31,22 @@ export default {
   data: () => ({
     email: "",
     password: "",
-    error: "",
-    success: ""
+    error: ""
   }),
   methods: {
     sign() {
       const api = "http://127.0.0.1:8000/sign";
+
       this.error = "";
-      this.success = "";
       this.axios
         .post(api, {
           email: this.email,
           password: this.password
         })
         .then(response => {
-          this.success = response.data;
+          const data = response.data;
+          localStorage.setItem("JWT_TOKEN", data.token);
+          this.$router.push("/");
         })
         .catch(error => {
           this.error = error.response.data;

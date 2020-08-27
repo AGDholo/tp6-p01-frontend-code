@@ -1,18 +1,17 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <v-alert type="info">
+      欢迎你，你的 token 是：<br />
+      {{ token }}
+    </v-alert>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
-  components: {
-    HelloWorld
-  }
+  data: () => ({
+    token: window.localStorage.getItem("JWT_TOKEN")
+  })
 };
 </script>
