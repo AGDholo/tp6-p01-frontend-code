@@ -2,18 +2,11 @@
   <div>
     <h1>注册表单</h1>
 
-    <v-alert
-      dense
-      outlined
-      :type="success ? 'success' : 'error'"
-      v-if="success || error"
-    >
-      <div v-if="error">
-        <span v-for="(errorItem, i) in error" :key="i">
-          {{ errorItem }}
-          <br />
-        </span>
-      </div>
+    <v-alert dense outlined type="error" v-if="error">
+      <span v-for="(errorItem, i) in error" :key="i">
+        {{ errorItem }}
+        <br />
+      </span>
     </v-alert>
 
     <v-text-field label="邮件地址" type="email" v-model="email"></v-text-field>
@@ -46,6 +39,9 @@ export default {
         .then(response => {
           const data = response.data;
           localStorage.setItem("JWT_TOKEN", data.token);
+
+          this.$store.commit("user_data", data);
+          this.$store.commit("login");
           this.$router.push("/");
         })
         .catch(error => {
