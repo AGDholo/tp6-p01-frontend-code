@@ -56,9 +56,7 @@
                       <v-list-item-content v-bind="attrs" v-on="on">
                         <v-list-item-title>
                           {{ $store.state.user.data.email }}
-                          <v-icon right>
-                            mdi-dots-horizontal
-                          </v-icon>
+                          <v-icon right>mdi-dots-horizontal</v-icon>
                         </v-list-item-title>
                       </v-list-item-content>
                     </template>
@@ -71,9 +69,9 @@
                           </v-list-item-avatar>
 
                           <v-list-item-content>
-                            <v-list-item-title>{{
-                              $store.state.user.data.email
-                            }}</v-list-item-title>
+                            <v-list-item-title>
+                              {{ $store.state.user.data.email }}
+                            </v-list-item-title>
                             <v-list-item-subtitle
                               >网站用户</v-list-item-subtitle
                             >
@@ -115,7 +113,23 @@ export default {
   }),
   methods: {
     logout() {
-      this.$store.commit("logout");
+      const token = this.$store.state.user.data.token;
+      const postData = "";
+      const api = "http://127.0.0.1:8000/logout";
+      const headers = {
+        Authorization: "Bearer " + token
+      };
+
+      this.axios
+        .post(api, postData, {
+          headers: headers
+        })
+        .then(() => {
+          this.$store.commit("logout");
+        })
+        .catch(error => {
+          alert(error.response.data.error);
+        });
     }
   }
 };

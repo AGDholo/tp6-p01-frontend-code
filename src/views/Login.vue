@@ -1,8 +1,53 @@
 <template>
   <div>
-    <h1>登录表单</h1>
-    <v-text-field label="邮件地址" type="email"></v-text-field>
-    <v-text-field label="密码" type="password"></v-text-field>
-    <v-btn rounded>登录</v-btn>
+    <h1>登录</h1>
+
+    <v-alert dense outlined type="error" v-if="error">
+      <span v-for="(errorItem, i) in error" :key="i">
+        {{ errorItem }}
+        <br />
+      </span>
+    </v-alert>
+
+    <v-text-field label="邮件地址" type="email" v-model="email"></v-text-field>
+    <v-text-field
+      label="密码"
+      type="password"
+      v-model="password"
+    ></v-text-field>
+    <v-btn rounded @click="login">登录</v-btn>
   </div>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    email: "",
+    password: "",
+    error: ""
+  }),
+  methods: {
+    login() {
+      const api = "http://127.0.0.1:8000/login";
+
+      this.error = "";
+      this.axios
+        .post(api, {
+          email: this.email,
+          password: this.password
+        })
+        .then(response => {
+          const data = response.data;
+          localStorage.setItem("JWT_TOKEN", data.token);
+
+          this.$store.commit("user_data", data);
+          this.$store.commit("login");
+          this.$router.push("/");
+        })
+        .catch(error => {
+          this.error = error.response.data;
+        });
+    }
+  }
+};
+</script>
