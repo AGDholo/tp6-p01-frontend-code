@@ -23,20 +23,27 @@ const toLogin = () => {
  * 请求失败后的错误统一处理
  * @param {Number} status 请求失败的状态码
  */
-const errorHandle = (status, other) => {
+const errorHandle = (status, res) => {
   // 状态码判断
   switch (status) {
-    case 500:
+    case 403:
     case 401:
       store.commit("logout");
       toLogin();
+      store.dispatch("snackbar/openSnackbar", {
+        msg: res
+      });
       break;
     // 404请求不存在
     case 404:
-      console.log("请求的资源不存在");
+      store.dispatch("snackbar/openSnackbar", {
+        msg: "请求的资源不存在"
+      });
       break;
     default:
-      console.log(other);
+      store.dispatch("snackbar/openSnackbar", {
+        msg: res
+      });
   }
 };
 

@@ -69,9 +69,9 @@
                           </v-list-item-avatar>
 
                           <v-list-item-content>
-                            <v-list-item-title>{{
-                              $store.state.user.data.email
-                            }}</v-list-item-title>
+                            <v-list-item-title>
+                              {{ $store.state.user.data.email }}
+                            </v-list-item-title>
                             <v-list-item-subtitle
                               >网站用户</v-list-item-subtitle
                             >
@@ -99,11 +99,18 @@
         </v-col>
       </v-row>
     </v-container>
+
+    <Snackbar />
   </v-app>
 </template>
 
 <script>
+import Snackbar from "./components/_partial/Snackbar";
+
 export default {
+  components: {
+    Snackbar
+  },
   data: () => ({
     navItems: [{ title: "主页", icon: "mdi-home", to: "/" }],
     navUserItems: [
