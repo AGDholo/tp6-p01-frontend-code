@@ -112,12 +112,27 @@ export default {
     Snackbar
   },
   data: () => ({
-    navItems: [{ title: "主页", icon: "mdi-home", to: "/" }],
     navUserItems: [
       { title: "注册", icon: "mdi-account-plus", to: "/sign" },
       { title: "登录", icon: "mdi-login", to: "/login" }
     ]
   }),
+  computed: {
+    navItems() {
+      const data = [{ title: "主页", icon: "mdi-home", to: "/" }];
+      if (!this.$store.state.user.isLogin) {
+        return data;
+      }
+
+      const user = {
+        title: "个人资料",
+        icon: "mdi-account",
+        to: this.$store.state.user.data.id
+      };
+
+      return [...data, user];
+    }
+  },
   mounted() {
     this.$api.me();
   },
