@@ -4,14 +4,13 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
-import axios from "./plugins/axios";
+import api from "../model/api";
 
-Vue.config.productionTip = false;
+Vue.prototype.$api = api; // 将api挂载到vue的原型上
 
 new Vue({
   router,
   store,
-  axios,
   vuetify,
   render: h => h(App)
 }).$mount("#app");

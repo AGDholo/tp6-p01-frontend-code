@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import router from "../router/index";
 
 Vue.use(Vuex);
 
@@ -23,8 +22,6 @@ export default new Vuex.Store({
     logout(state) {
       state.user.isLogin = false;
       state.user.data = "";
-      localStorage.clear();
-      router.push("/login");
     }
   },
   actions: {},

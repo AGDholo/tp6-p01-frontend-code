@@ -28,25 +28,11 @@ export default {
   }),
   methods: {
     login() {
-      const api = "http://127.0.0.1:8000/login";
-
-      this.error = "";
-      this.axios
-        .post(api, {
-          email: this.email,
-          password: this.password
-        })
-        .then(response => {
-          const data = response.data;
-          localStorage.setItem("JWT_TOKEN", data.token);
-
-          this.$store.commit("user_data", data);
-          this.$store.commit("login");
-          this.$router.push("/");
-        })
-        .catch(error => {
-          this.error = error.response.data;
-        });
+      const params = {
+        email: this.email,
+        password: this.password
+      };
+      this.$api.auth("login", params);
     }
   }
 };
