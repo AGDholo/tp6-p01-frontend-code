@@ -8,6 +8,15 @@ import router from "../src/router/index";
 const domain = "http://127.0.0.1:8000";
 
 const api = {
+  userUpdate(id, params) {
+    return axios.put(`${domain}/user/${id}`, params).then(res => {
+      store.commit("user_data", res.data);
+
+      // 刷新当前页面
+      router.go();
+    });
+  },
+
   userDetail(id) {
     return axios.get(`${domain}/user/${id}`);
   },
