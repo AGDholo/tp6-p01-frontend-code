@@ -8,6 +8,12 @@ import router from "../src/router/index";
 const domain = "http://127.0.0.1:8000";
 
 const api = {
+  tweetPush(params) {
+    return axios.post(`${domain}/tweet`, params).then(res => {
+      console.log(res.data);
+    });
+  },
+
   userUpdate(id, params) {
     return axios.put(`${domain}/user/${id}`, params).then(res => {
       store.commit("user_data", res.data);

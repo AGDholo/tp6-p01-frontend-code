@@ -1,11 +1,33 @@
 <template>
   <div>
-    <v-alert type="info">
-      登录状态：{{ $store.state.user.isLogin }} <br />
-
-      欢迎你，你的 token 是：<br />
-      {{ token }}
-    </v-alert>
+    <v-card flat>
+      <v-card-text>
+        <div class="d-flex align-start">
+          <v-avatar size="49">
+            <v-icon size="49">mdi-account</v-icon>
+          </v-avatar>
+          <v-textarea
+            v-model="content"
+            placeholder="有什么新鲜事？"
+            auto-grow
+            counter="280"
+            height="50"
+          ></v-textarea>
+        </div>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <!-- 如果用户没有输入内容，禁用按钮 -->
+        <v-btn
+          :disabled="!content"
+          color="primary"
+          rounded
+          depressed
+          @click="push"
+          >推文</v-btn
+        >
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
@@ -13,7 +35,16 @@
 export default {
   name: "Home",
   data: () => ({
-    token: window.localStorage.getItem("JWT_TOKEN")
-  })
+    content: null
+  }),
+  methods: {
+    push() {
+      const params = {
+        content: this.content
+      };
+
+      this.$api.tweetPush(params);
+    }
+  }
 };
 </script>
