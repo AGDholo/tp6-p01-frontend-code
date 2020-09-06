@@ -36,6 +36,32 @@
       </v-card-text>
     </v-card>
 
+    <v-card flat outlined v-for="(item, i) in user.tweets" :key="i">
+      <v-card-text>
+        <div class="d-flex align-start">
+          <v-avatar size="49">
+            <v-icon size="49">mdi-account</v-icon>
+          </v-avatar>
+
+          <div>
+            <router-link
+              :to="user.id"
+              style="color: #000;text-decoration: none;"
+              class="text-subtitle-1"
+            >
+              {{ user.name ? user.name : "网站用户" }}
+
+              {{ user.email }} {{ item.created_at }}
+            </router-link>
+
+            <p class="text-subtitle-1">
+              {{ item.content }}
+            </p>
+          </div>
+        </div>
+      </v-card-text>
+    </v-card>
+
     <v-dialog v-model="dialog" max-width="600" persistent>
       <v-card>
         <div>
