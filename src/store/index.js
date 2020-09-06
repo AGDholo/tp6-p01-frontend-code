@@ -9,9 +9,16 @@ export default new Vuex.Store({
     user: {
       isLogin: false,
       data: ""
+    },
+    tweet: {
+      data: Object
     }
   },
   mutations: {
+    tweet_data(state, data) {
+      state.tweet.data = data;
+    },
+
     user_data(state, data) {
       state.user.data = data;
     },

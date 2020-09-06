@@ -28,6 +28,34 @@
         >
       </v-card-actions>
     </v-card>
+
+    <div class="mt-2">
+      <v-card flat outlined v-for="(item, i) in tweets" :key="i">
+        <v-card-text>
+          <div class="d-flex align-start">
+            <v-avatar size="49">
+              <v-icon size="49">mdi-account</v-icon>
+            </v-avatar>
+
+            <div>
+              <router-link
+                :to="item.user_id"
+                style="color: #000;text-decoration: none;"
+                class="text-subtitle-1"
+              >
+                {{ item.user.name ? item.user.name : "网站用户" }}
+
+                {{ item.user.email }} {{ item.created_at }}
+              </router-link>
+
+              <p class="text-subtitle-1">
+                {{ item.content }}
+              </p>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </div>
   </div>
 </template>
 
@@ -37,6 +65,14 @@ export default {
   data: () => ({
     content: null
   }),
+  mounted() {
+    this.$api.tweetFetch();
+  },
+  computed: {
+    tweets() {
+      return this.$store.state.tweet.data;
+    }
+  },
   methods: {
     push() {
       const params = {
