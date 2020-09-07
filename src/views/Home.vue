@@ -29,6 +29,10 @@
       </v-card-actions>
     </v-card>
 
+    <div>
+      <v-switch v-model="followed" label="关注用户"></v-switch>
+    </div>
+
     <div class="mt-2">
       <v-card flat outlined v-for="(item, i) in tweets" :key="i">
         <v-card-text>
@@ -63,10 +67,11 @@
 export default {
   name: "Home",
   data: () => ({
+    followed: false,
     content: null
   }),
   mounted() {
-    this.$api.tweetFetch();
+    this.fetch();
   },
   computed: {
     tweets() {
@@ -74,12 +79,23 @@ export default {
     }
   },
   methods: {
+    fetch() {
+      const params = {
+        all_tweets: this.followed ? 0 : 1
+      };
+      this.$api.tweetFetch(params);
+    },
     push() {
       const params = {
         content: this.content
       };
 
       this.$api.tweetPush(params);
+    }
+  },
+  watch: {
+    followed() {
+      this.fetch();
     }
   }
 };

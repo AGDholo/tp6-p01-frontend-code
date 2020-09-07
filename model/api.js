@@ -8,8 +8,8 @@ import router from "../src/router/index";
 const domain = "http://127.0.0.1:8000";
 
 const api = {
-  tweetFetch() {
-    return axios.get(`${domain}/tweet`).then(res => {
+  tweetFetch(params) {
+    return axios.get(`${domain}/tweet`, { params }).then(res => {
       store.commit("tweet_data", res.data);
     });
   },
