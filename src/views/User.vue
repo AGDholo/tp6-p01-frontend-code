@@ -29,8 +29,27 @@
               color="primary"
               @click.stop="dialog = true"
               v-if="user.id === $store.state.user.data.id"
-              >编辑个人资料</v-btn
+              >编辑个人资料
+            </v-btn>
+
+            <v-btn
+              v-else-if="is_following"
+              rounded
+              color="error"
+              @click="followAction('unfollow')"
             >
+              取消关注
+            </v-btn>
+
+            <v-btn
+              v-else
+              rounded
+              outlined
+              color="primary"
+              @click="followAction('follow')"
+            >
+              关注用户
+            </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
@@ -50,13 +69,10 @@
               class="text-subtitle-1"
             >
               {{ user.name ? user.name : "网站用户" }}
-
               {{ user.email }} {{ item.created_at }}
             </router-link>
 
-            <p class="text-subtitle-1">
-              {{ item.content }}
-            </p>
+            <p class="text-subtitle-1">{{ item.content }}</p>
           </div>
         </div>
       </v-card-text>
@@ -93,17 +109,34 @@
 <script>
 export default {
   data: () => ({
-    user: null,
     name: null,
     dialog: false
   }),
   mounted() {
-    const id = this.$route.params.id;
-    this.$api.userDetail(id).then(res => {
-      this.user = res.data;
-    });
+    this.fetchUser();
+  },
+  computed: {
+    user() {
+      return this.$store.state.viewer.data.data;
+    },
+    is_following() {
+      return this.$store.state.viewer.data.is_following;
+    }
   },
   methods: {
+    followAction(action) {
+      const id = this.user.id;
+      const params = {
+        follow_id: id
+      };
+      this.$api.userFollowAction(action, params);
+    },
+    fetchUser() {
+      const id = this.$route.params.id;
+      this.$api.userDetail(id).then(res => {
+        this.$store.commit("viewer_data", res.data);
+      });
+    },
     updateUser() {
       this.$api.userUpdate(this.$store.state.user.data.id, {
         name: this.name

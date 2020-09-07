@@ -6,6 +6,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    viewer: {
+      data: ""
+    },
     user: {
       isLogin: false,
       data: ""
@@ -17,6 +20,10 @@ export default new Vuex.Store({
   mutations: {
     tweet_data(state, data) {
       state.tweet.data = data;
+    },
+
+    viewer_data(state, data) {
+      state.viewer.data = data;
     },
 
     user_data(state, data) {

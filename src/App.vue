@@ -94,7 +94,7 @@
 
         <v-col cols="8">
           <v-main>
-            <router-view></router-view>
+            <router-view :key="$route.fullPath"></router-view>
           </v-main>
         </v-col>
       </v-row>

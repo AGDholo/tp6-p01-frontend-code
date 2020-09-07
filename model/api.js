@@ -20,6 +20,12 @@ const api = {
     });
   },
 
+  userFollowAction(action, params) {
+    return axios.post(`${domain}/user/${action}`, params).then(res => {
+      store.commit("viewer_data", res.data);
+    });
+  },
+
   userUpdate(id, params) {
     return axios.put(`${domain}/user/${id}`, params).then(res => {
       store.commit("user_data", res.data);
