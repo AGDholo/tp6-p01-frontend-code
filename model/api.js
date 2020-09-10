@@ -5,7 +5,8 @@ import axios from "./http";
 import store from "../src/store/index";
 import router from "../src/router/index";
 
-const domain = "http://tp6-p01.api.heroui.net:1111/";
+const domain =
+  "https://bird.ioliu.cn/v1?url=http://tp6-p01.api.heroui.net:1111/";
 
 const api = {
   tweetFetch(params) {
